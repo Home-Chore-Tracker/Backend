@@ -1,5 +1,5 @@
 {
-  "name": "Chore_Tracker",
+  "name": "Chore-Tracker",
   "version": "1.0.0",
   "description": "Add or remove chores for children from parent accounts.",
   "main": "index.js",
