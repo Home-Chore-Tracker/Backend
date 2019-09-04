@@ -46,9 +46,9 @@ server.use(session(sessionOptions));
 
 //Insert router requires here
 server.use("/api/auth", authRouter);
-server.use("/api/user", userRouter);
-server.use("/api/family", familyRouter);
-server.use("/api/child", childRouter);
-server.use("/api/chore", choreRouter);
+server.use("/api/users", userRouter);
+server.use("/api/families", familyRouter);
+server.use("/api/children", childRouter);
+server.use("/api/chores", choreRouter);
 
 module.exports = server;
