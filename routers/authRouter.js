@@ -22,6 +22,7 @@ router.post("/register", async (req, res) => {
     const hash = bcrypt.hashSync(password, 10);
     const [id] = await db("users").insert({
       email,
+      name,
       password: hash
     });
     const [user] = await db("users").where({ id });
@@ -34,10 +35,10 @@ router.post("/register", async (req, res) => {
 });
 
 router.post("/login", async (req, res) => {
-  const { email, password, name } = req.body;
-  if (!email || !password || !name) {
+  const { email, password } = req.body;
+  if (!email || !password) {
     return res.status(400).json({
-      error: "`email`, `name` and `password` are required!"
+      error: "`email` and `password` are required!"
     });
   }
 
