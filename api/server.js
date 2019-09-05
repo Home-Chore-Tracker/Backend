@@ -4,10 +4,10 @@ const helmet = require("helmet");
 
 //Import routes here
 const authRouter = require("../routers/authRouter");
-const childRouter = require("../routers/childRouter");
-const choreRouter = require("../routers/choreRouter");
-const familyRouter = require("../routers/familyRouter");
-const userRouter = require("../routers/userRouter");
+// const childRouter = require("../routers/childRouter");
+// const choreRouter = require("../routers/choreRouter");
+// const familyRouter = require("../routers/familyRouter");
+// const userRouter = require("../routers/userRouter");
 
 const secrets = require("../config/secrets.js");
 
@@ -31,7 +31,7 @@ const sessionOptions = {
   saveUninitialized: false,
 
   store: new knexSessionStore({
-    knex: require("../database/dbConfig"),
+    knex: require("../database/config"),
     tablename: "sessions",
     sidfieldname: "sid",
     createtable: true,
@@ -46,9 +46,9 @@ server.use(session(sessionOptions));
 
 //Insert router requires here
 server.use("/api/auth", authRouter);
-server.use("/api/users", userRouter);
-server.use("/api/families", familyRouter);
-server.use("/api/children", childRouter);
-server.use("/api/chores", choreRouter);
+// server.use("/api/users", userRouter);
+// server.use("/api/families", familyRouter);
+// server.use("/api/children", childRouter);
+// server.use("/api/chores", choreRouter);
 
 module.exports = server;
