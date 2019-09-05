@@ -56,4 +56,18 @@ describe('Auth Router (`/api/auth`)', () => {
        })
     })
   })
+
+  /**
+   * POST /api/auth/login
+   *
+   *  Some scenarios to think about when writing these tests:
+   *    - missing credentials
+   *    - invalid credentials
+   *    - valid credentials
+   */
+  describe('POST /api/auth/login', () => {
+    describe('Missing Credentials', () => {})
+    describe('Invalid Credentials', () => {})
+    describe('Valid Credentials', () => {})
+  })
 })
