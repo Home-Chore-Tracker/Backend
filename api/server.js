@@ -14,7 +14,7 @@ const secrets = require("../config/secrets.js");
 const session = require("express-session");
 const knexSessionStore = require("connect-session-knex")(session);
 
-const middleware = require("../middleware");
+const { restricted } = require("../middleware");
 
 const server = express();
 
