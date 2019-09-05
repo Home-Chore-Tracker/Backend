@@ -7,6 +7,9 @@
   "author": "Bob, Cedric, and Dan",
   "license": "MIT",
   "scripts": {
+    "db:migrate": "./node_modules/.bin/knex migrate:latest",
+    "db:drop": "./node_modules/.bin/knex migrate:rollback --all",
+    "start": "node index.js",
     "server": "nodemon index.js",
     "test": "jest --watch"
   },
