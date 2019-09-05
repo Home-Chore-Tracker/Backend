@@ -14,7 +14,7 @@ const secrets = require("../config/secrets.js");
 const session = require("express-session");
 const knexSessionStore = require("connect-session-knex")(session);
 
-const middleware = require("../middleware");
+const { restricted } = require("../middleware");
 
 const server = express();
 
@@ -46,9 +46,9 @@ server.use(session(sessionOptions));
 
 //Insert router requires here
 server.use("/api/auth", authRouter);
-// server.use("/api/users", userRouter);
-// server.use("/api/families", familyRouter);
-// server.use("/api/children", childRouter);
-// server.use("/api/chores", choreRouter);
+// server.use("/api/users", restricted, userRouter);
+// server.use("/api/families", restricted, familyRouter);
+// server.use("/api/children", restricted, childRouter);
+// server.use("/api/chores", restricted, choreRouter);
 
 module.exports = server;
