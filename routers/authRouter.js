@@ -8,6 +8,7 @@ POST /api/auth/logout
 const router = require("express").Router();
 const bcrypt = require("bcryptjs");
 const db = require("../database/dbConfig");
+const jwt = require("jsonwebtoken");
 
 router.post("/register", async (req, res) => {
   const { username, password } = req.body;
@@ -42,8 +43,9 @@ router.post("/login", async (req, res) => {
   try {
     const [user] = await db("users").where({ username });
     if (user && bcrypt.compareSync(password, user.password)) {
-      req.session.isAuthenticated = true;
-      return res.status(200).end();
+      const token = generateToken(user);
+      console.log(token);
+      return res.status(200).json({ message: `Welcome ${user.username}` });
     } else {
       return res.status(401).json({
         error:
