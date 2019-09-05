@@ -7,8 +7,8 @@ POST /api/auth/logout
 
 const router = require("express").Router();
 const bcrypt = require("bcryptjs");
-const db = require("../database/dbConfig");
-const generateToken = require("generateToken");
+const db = require("../database/config");
+const { generateToken } = require("../middleware");
 const jwt = require("jsonwebtoken");
 
 router.post("/register", async (req, res) => {
