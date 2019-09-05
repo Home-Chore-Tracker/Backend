@@ -15,7 +15,7 @@ router.get("/children", async (req, res) => {
     //Start a Try Catch statement
     try {
       //Create a Children variable that is assigned to the entire table "children" which is being mapped over
-      const children = (await db("I will need to be changed")).map(child => {
+      const children = (await db("I will need to be changed")).where({userId}).map(child => {
         //And returning 
         return {
           //Each individual child
