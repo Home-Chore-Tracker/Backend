@@ -54,18 +54,6 @@ router.get("/children/:id", async (req, res) => {
     } else {
       //Then assign the variable of chores to be the foreign ID of all chores that have the matching child id
       const chores = await db("chores").where({ child_id: id });
-      //   //Then assign the variable of resources to be the foreign ID of all resources that have an assignment to the previously specified child id
-      //   //~~~Litteral Translation~~~
-      //   //Create resources variable, Do not continue until the following is done
-      //   //1. Using the table "resources" use the .whereIn() filter. This takes two arguments. First is an integer which in this case represents the id that is apart of the req.params, and the second is an anonymous callback function
-      //   //2. SELECT resource_id FROM child_resources (a column) WHERE the child_id matches the id destructured up above
-      //   const resources = await db("resources").whereIn("id", function() {
-      //     this.select("resource_id")
-      //       .from("child_resources")
-      //       .where({ child_id: id });
-      //   }
-      //   );
-
       //The child will then be presented as a single object, with its details in the root of the object, the chores as an array in the roote of the object and the resources as an array in the root of the object
       child = { ...child, chores /*, resources */ };
       //Then we are going to return that child object as a JSON object
