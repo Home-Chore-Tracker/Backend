@@ -8,7 +8,7 @@ DELETE /api/children/:childId
 */
 const router = require("express").Router;
 
-const Children = require("../dbModels/childRouterModel");
+const Children = require("../models/childRouterModel");
 // const restricted = require("../middleware");
 
 router.get("/children", async (req, res) => {
