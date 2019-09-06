@@ -8,7 +8,7 @@ exports.up = function(knex) {
       .references('children.id');
     table.string('title').notNullable();
     table.date('duedate');
-    table.boolean('complete').defaultTo(false);
+    table.boolean('completed').defaultTo(false);
     table.string('description');
   });
 };
