@@ -5,7 +5,7 @@ const helmet = require("helmet");
 //Import routes here
 const authRouter = require("../routers/authRouter");
 const childRouter = require("../routers/childRouter");
-// const choreRouter = require("../routers/choreRouter");
+const choreRouter = require("../routers/choreRouter");
 const familyRouter = require("../routers/familyRouter");
 // const userRouter = require("../routers/userRouter");
 
@@ -49,6 +49,6 @@ server.use("/api/auth", authRouter);
 // server.use("/api/users", restricted, userRouter);
 server.use("/api/families", restricted, familyRouter);
 server.use("/api/children", restricted, childRouter);
-// server.use("/api/chores", restricted, choreRouter);
+server.use("/api/chores", restricted, choreRouter);
 
 module.exports = server;

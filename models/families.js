@@ -11,7 +11,9 @@ const findFamilies = async (userId, options = { expand: false }) => {
   const families = await db('families').where({ user_id: userId })
   if (options.expand) {
     return Promise.all(families.map(async family => {
-      const children = await findChildren(userId)
+      const children = await findChildren(userId, {
+        filter: { family_id: family.id }
+      })
       return {
         ...family,
         children
@@ -31,7 +33,9 @@ const findFamilies = async (userId, options = { expand: false }) => {
 const findFamilyById = async (userId, familyId, options = { expand: false }) => {
   const [family] = await db('families').where({ user_id: userId, id: familyId })
   if (family && options.expand) {
-    const children = await findChildren(userId)
+    const children = await findChildren(userId, {
+      filter: { family_id: family.id }
+    })
     return {
       ...family,
       children

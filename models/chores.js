@@ -1,18 +1,29 @@
 const db = require('../database/config')
 
-const findChores = async (childId, options = { expand: false }) => {
-  /**
-   * TODO - need to update this function to not depend on `childId` and instead
-   * make use of nest `SELECT` statement or joins like the children model does.
-   */
-  const chores = await db('chores').where({ child_id: childId })
+/**
+ *
+ * @param {Integer} userId id of the currently-authenticated user
+ * @param {Object} options
+ * @param {Object} options.filter object containing key-value pairs mapping to
+ *                                a predicate to be used in a SQL `WHERE` clause
+ */
+const findChores = async (userId, options = { filter: {} }) => {
+  const chores = await db('chores').where({ user_id: userId, ...options.filter })
   return chores
 }
 
-const findChoreById = async (userId, childId, options = { expand: false }) => {
-  /**
-   * TODO - need to complete
-   */
+/**
+ *
+ * @param {Integer} userId id of the currently-authenticated user
+ * @param {Integer} choreId id of the chore to look for and return if found
+ * @param {Object} options
+ * @param {Object} options.filter object containing key-value pairs mapping to
+ *                                a predicate to be used in a SQL `WHERE` clause
+ */
+const findChoreById = async (userId, choreId, options = { filter: {} }) => {
+  const [chore] = await db('chores')
+    .where({ user_id: userId, id: choreId, ...options.filter })
+    return chore
 }
 
 module.exports = {
