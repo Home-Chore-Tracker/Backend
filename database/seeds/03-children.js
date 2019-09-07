@@ -4,17 +4,20 @@ exports.seed = function (knex) {
     {
       id: 1,
       name: 'Bobby',
-      family_id: 1
+      family_id: 1,
+      user_id: 1
     },
     {
       id: 2,
       name: 'Danny',
       family_id: 1,
+      user_id: 1
     },
     {
       id: 3,
       name: 'Ceddy',
-      family_id: 1
+      family_id: 1,
+      user_id: 1
     }
   ]);
 };

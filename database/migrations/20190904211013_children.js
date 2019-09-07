@@ -6,6 +6,11 @@ exports.up = function(knex) {
       .unsigned()
       .notNullable()
       .references('families.id');
+    table
+      .integer('user_id')
+      .unsigned()
+      .notNullable()
+      .references('users.id');
     table.string('name').notNullable();
   });
 };
