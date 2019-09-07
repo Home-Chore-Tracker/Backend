@@ -6,6 +6,11 @@ exports.up = function(knex) {
       .unsigned()
       .notNullable()
       .references('children.id');
+    table
+      .integer('user_id')
+      .unsigned()
+      .notNullable()
+      .references('users.id');
     table.string('title').notNullable();
     table.date('duedate');
     table.boolean('completed').defaultTo(false);

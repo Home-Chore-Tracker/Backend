@@ -14,7 +14,6 @@ function restricted(req, res, next) {
       } else {
         //The token is a good token!
         req.decodedJwt = decodedToken;
-        console.log(decodedToken);
         next();
       }
     });

@@ -7,7 +7,8 @@ exports.seed = function (knex) {
       description: null,
       completed: false,
       duedate: '2019-09-01',
-      child_id: 1
+      child_id: 1,
+      user_id: 1
     },
     {
       id: 2,
@@ -15,7 +16,8 @@ exports.seed = function (knex) {
       description: 'Poop from both the front- and back-yards.',
       completed: false,
       duedate: '2019-09-01',
-      child_id: 2
+      child_id: 2,
+      user_id: 1
     },
     {
       id: 3,
@@ -23,7 +25,8 @@ exports.seed = function (knex) {
       description: null,
       completed: false,
       duedate: '2019-09-01',
-      child_id: 3
+      child_id: 3,
+      user_id: 1
     },
     {
       id: 4,
@@ -31,7 +34,8 @@ exports.seed = function (knex) {
       description: null,
       completed: true,
       duedate: '2019-09-01',
-      child_id: 3
+      child_id: 3,
+      user_id: 1
     },
   ]);
 };
