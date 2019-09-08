@@ -7,7 +7,7 @@ const authRouter = require("../routers/authRouter");
 const childRouter = require("../routers/childRouter");
 const choreRouter = require("../routers/choreRouter");
 const familyRouter = require("../routers/familyRouter");
-// const userRouter = require("../routers/userRouter");
+const userRouter = require("../routers/userRouter");
 
 const secrets = require("../config/secrets.js");
 
@@ -46,7 +46,7 @@ server.use(session(sessionOptions));
 
 //Insert router requires here
 server.use("/api/auth", authRouter);
-// server.use("/api/users", restricted, userRouter);
+server.use("/api/users", restricted, userRouter);
 server.use("/api/families", restricted, familyRouter);
 server.use("/api/children", restricted, childRouter);
 server.use("/api/chores", restricted, choreRouter);
