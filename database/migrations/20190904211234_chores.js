@@ -5,12 +5,14 @@ exports.up = function(knex) {
       .integer('child_id')
       .unsigned()
       .notNullable()
-      .references('children.id');
+      .references('children.id')
+      .onDelete('CASCADE');
     table
       .integer('user_id')
       .unsigned()
       .notNullable()
-      .references('users.id');
+      .references('users.id')
+      .onDelete('CASCADE');
     table.string('title').notNullable();
     table.date('duedate');
     table.boolean('completed').defaultTo(false);

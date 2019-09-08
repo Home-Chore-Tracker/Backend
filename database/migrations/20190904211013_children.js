@@ -5,12 +5,14 @@ exports.up = function(knex) {
       .integer('family_id')
       .unsigned()
       .notNullable()
-      .references('families.id');
+      .references('families.id')
+      .onDelete('CASCADE');
     table
       .integer('user_id')
       .unsigned()
       .notNullable()
-      .references('users.id');
+      .references('users.id')
+      .onDelete('CASCADE');
     table.string('name').notNullable();
   });
 };
