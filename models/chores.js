@@ -1,4 +1,4 @@
-const db = require('../database/config')
+const db = require('../database/config');
 
 /**
  *
@@ -8,9 +8,12 @@ const db = require('../database/config')
  *                                a predicate to be used in a SQL `WHERE` clause
  */
 const findChores = async (userId, options = { filter: {} }) => {
-  const chores = await db('chores').where({ user_id: userId, ...options.filter })
-  return chores
-}
+  const chores = await db('chores').where({
+    user_id: userId,
+    ...options.filter
+  });
+  return chores;
+};
 
 /**
  *
@@ -21,12 +24,22 @@ const findChores = async (userId, options = { filter: {} }) => {
  *                                a predicate to be used in a SQL `WHERE` clause
  */
 const findChoreById = async (userId, choreId, options = { filter: {} }) => {
-  const [chore] = await db('chores')
-    .where({ user_id: userId, id: choreId, ...options.filter })
-    return chore
-}
+  const [chore] = await db('chores').where({
+    user_id: userId,
+    id: choreId,
+    ...options.filter
+  });
+  return chore;
+};
+
+const addChore = async (userId, chore) => {
+  const [id] = await db('chores').insert({ ...chore, user_id: userId });
+
+  return findChoreById(userId, id);
+};
 
 module.exports = {
   findChores,
-  findChoreById
-}
+  findChoreById,
+  addChore
+};
