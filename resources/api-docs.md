@@ -4,11 +4,11 @@ This document outlines the expected JSON object response for the `GET` requests
 for each of the API resource types (i.e. `User`, `Family`, `Child`, and `Chore`).
 
 > **Note:** all API requests expect an `Authorization` header containing the JWT
-> token for the currently logged-in user (as defined by `/api/auth/me`).
+> token for the currently logged-in user (as defined by `GET /api/users/me`).
 
 ```js
 /**
- * GET /api/auth/me
+ * GET /api/users/me
  * 
  * @returns {<User>}
  */
@@ -16,7 +16,18 @@ for each of the API resource types (i.e. `User`, `Family`, `Child`, and `Chore`)
   id
   name
   email
-  family_id
+  families: [
+    {
+      id,
+      surname,
+      user_id
+    },
+    {
+      id,
+      surname,
+      user_id
+    }
+  ]
 }
 
 /**
@@ -29,16 +40,16 @@ for each of the API resource types (i.e. `User`, `Family`, `Child`, and `Chore`)
     id
     name
     children: [
-      { id, name, family_id },
-      { id, name, family_id }
+      { id, name, family_id, user_id },
+      { id, name, family_id, user_id }
     ]
   },
   {
     id
     name
     children: [
-      { id, name, family_id },
-      { id, name, family_id }
+      { id, name, family_id, user_id },
+      { id, name, family_id, user_id }
     ]
   }
 ]
@@ -49,11 +60,12 @@ for each of the API resource types (i.e. `User`, `Family`, `Child`, and `Chore`)
  * @returns {<Family>}
  */
 {
-  id
-  name
+  id,
+  name,
+  user_id,
   children: [
-    { id, name, family_id },
-    { id, name, family_id }
+    { id, name, family_id, user_id },
+    { id, name, family_id, user_id }
   ]
 }
 
@@ -67,6 +79,7 @@ for each of the API resource types (i.e. `User`, `Family`, `Child`, and `Chore`)
     id,
     name,
     family_id,
+    user_id,
     chores: [
       {
         id,
@@ -74,7 +87,8 @@ for each of the API resource types (i.e. `User`, `Family`, `Child`, and `Chore`)
         description,
         duedate,
         completed,
-        child_id
+        child_id,
+        user_id
       }
     ]
   },
@@ -82,6 +96,7 @@ for each of the API resource types (i.e. `User`, `Family`, `Child`, and `Chore`)
     id,
     name,
     family_id,
+    user_id
     chores: [
       {
         id,
@@ -89,7 +104,8 @@ for each of the API resource types (i.e. `User`, `Family`, `Child`, and `Chore`)
         description,
         duedate,
         completed,
-        child_id
+        child_id,
+        user_id
       }
     ]
   }
@@ -104,6 +120,7 @@ for each of the API resource types (i.e. `User`, `Family`, `Child`, and `Chore`)
   id,
   name,
   family_id,
+  user_id
   chores: [
     {
       id,
@@ -111,7 +128,8 @@ for each of the API resource types (i.e. `User`, `Family`, `Child`, and `Chore`)
       description,
       duedate,
       completed,
-      child_id
+      child_id,
+      user_id
     }
   ]
 }
@@ -128,7 +146,8 @@ for each of the API resource types (i.e. `User`, `Family`, `Child`, and `Chore`)
     description,
     duedate,
     completed,
-    child_id
+    child_id,
+    user_id
   },
   {
     id,
@@ -136,7 +155,8 @@ for each of the API resource types (i.e. `User`, `Family`, `Child`, and `Chore`)
     description,
     duedate,
     completed,
-    child_id
+    child_id,
+    user_id
   }
 ]
 
@@ -152,5 +172,6 @@ for each of the API resource types (i.e. `User`, `Family`, `Child`, and `Chore`)
   duedate,
   completed,
   child_id,
+  user_id
 }
 ```
