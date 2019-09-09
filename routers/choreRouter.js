@@ -27,7 +27,7 @@ router.get('/:id', async (req, res) => {
   try {
     const chore = await findChoreById(userId, id);
     if (!chore) {
-      return res.status(401).json({
+      return res.status(400).json({
         error: 'No chore found with the given id'
       });
     }

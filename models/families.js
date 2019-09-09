@@ -65,9 +65,16 @@ const updateFamily = async (userId, familyId, updates) => {
   return findFamilyById(userId, familyId);
 };
 
+const destroyFamily = async (userId, familyId) => {
+  await db('families')
+    .where({ id: familyId, user_id: userId })
+    .delete();
+};
+
 module.exports = {
   findFamilies,
   findFamilyById,
   addFamily,
-  updateFamily
+  updateFamily,
+  destroyFamily
 };
