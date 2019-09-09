@@ -58,8 +58,16 @@ const addFamily = async (userId, family) => {
   return findFamilyById(userId, id);
 };
 
+const updateFamily = async (userId, familyId, updates) => {
+  await db('families')
+    .where({ user_id: userId, id: familyId })
+    .update(updates);
+  return findFamilyById(userId, familyId);
+};
+
 module.exports = {
   findFamilies,
   findFamilyById,
-  addFamily
+  addFamily,
+  updateFamily
 };

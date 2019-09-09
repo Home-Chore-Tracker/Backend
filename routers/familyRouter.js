@@ -2,7 +2,8 @@ const router = require('express').Router();
 const {
   findFamilies,
   findFamilyById,
-  addFamily
+  addFamily,
+  updateFamily
 } = require('../models/families');
 
 router.get('/', async (req, res) => {
@@ -53,7 +54,25 @@ router.post('/', async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 });
-router.put('/:id', async (req, res) => {});
+
+router.put('/:id', async (req, res) => {
+  const { id } = req.params;
+  const { decodedJwt } = req;
+  const userId = decodedJwt.subject;
+  const updates = req.body;
+  if (Object.entries(updates).length === 0 && updates.constructor === Object) {
+    res
+      .status(400)
+      .json({ error: 'Invalid request, req body cannot be empty' });
+  }
+  try {
+    const updated = await updateFamily(userId, id, updates);
+    res.status(201).json(updated);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
 router.delete('/:id', async (req, res) => {});
 
 module.exports = router;
