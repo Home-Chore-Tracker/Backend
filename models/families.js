@@ -1,27 +1,29 @@
-const db = require('../database/config')
-const { findChildren } = require('./children')
+const db = require('../database/config');
+const { findChildren } = require('./children');
 
 /**
- * 
+ *
  * @param {Integer} userId id of the currently-authenticated user
  * @param {Object} options
  * @param {Boolean} options.expand whether or not to expand nested resources
  */
 const findFamilies = async (userId, options = { expand: false }) => {
-  const families = await db('families').where({ user_id: userId })
+  const families = await db('families').where({ user_id: userId });
   if (options.expand) {
-    return Promise.all(families.map(async family => {
-      const children = await findChildren(userId, {
-        filter: { family_id: family.id }
+    return Promise.all(
+      families.map(async family => {
+        const children = await findChildren(userId, {
+          filter: { family_id: family.id }
+        });
+        return {
+          ...family,
+          children
+        };
       })
-      return {
-        ...family,
-        children
-      }
-    }))
+    );
   }
-  return families
-}
+  return families;
+};
 
 /**
  *
@@ -30,21 +32,34 @@ const findFamilies = async (userId, options = { expand: false }) => {
  * @param {Object} options
  * @param {Boolean} options.expand whether or not to expand nested resources
  */
-const findFamilyById = async (userId, familyId, options = { expand: false }) => {
-  const [family] = await db('families').where({ user_id: userId, id: familyId })
+const findFamilyById = async (
+  userId,
+  familyId,
+  options = { expand: false }
+) => {
+  const [family] = await db('families').where({
+    user_id: userId,
+    id: familyId
+  });
   if (family && options.expand) {
     const children = await findChildren(userId, {
       filter: { family_id: family.id }
-    })
+    });
     return {
       ...family,
       children
-    }
+    };
   }
-  return family
-}
+  return family;
+};
+
+const addFamily = async (userId, family) => {
+  const [id] = await db('families').insert({ ...family, user_id: userId });
+  return findFamilyById(userId, id);
+};
 
 module.exports = {
   findFamilies,
-  findFamilyById
-}
+  findFamilyById,
+  addFamily
+};
