@@ -1,5 +1,10 @@
 const router = require('express').Router();
-const { findChores, findChoreById, addChore } = require('../models/chores');
+const {
+  findChores,
+  findChoreById,
+  addChore,
+  updateChore
+} = require('../models/chores');
 
 router.get('/', async (req, res) => {
   const { decodedJwt } = req;
@@ -50,7 +55,26 @@ router.post('/', async (req, res) => {
   }
 });
 
-router.put('/:id', async (req, res) => {});
+router.put('/:id', async (req, res) => {
+  const { id } = req.params;
+  const { decodedJwt } = req;
+  const userId = decodedJwt.subject;
+  const updates = req.body;
+  if (Object.entries(updates).length === 0 && updates.constructor === Object) {
+    return res
+      .status(400)
+      .json({ error: 'Invalid request, req body cannot be empty' });
+  }
+  try {
+    const updated = await updateChore(userId, id, updates);
+
+    res.status(200).json(updated);
+  } catch (error) {
+    res.status(500).json({
+      error: error.message
+    });
+  }
+});
 router.delete('/:id', async (req, res) => {});
 
 module.exports = router;

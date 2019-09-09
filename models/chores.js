@@ -38,8 +38,16 @@ const addChore = async (userId, chore) => {
   return findChoreById(userId, id);
 };
 
+const updateChore = async (userId, choreId, updates) => {
+  await db('chores')
+    .where({ user_id: userId, id: choreId })
+    .update(updates);
+  return findChoreById(userId, choreId);
+};
+
 module.exports = {
   findChores,
   findChoreById,
-  addChore
+  addChore,
+  updateChore
 };
