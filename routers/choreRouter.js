@@ -49,7 +49,7 @@ router.post('/', async (req, res) => {
       res.status(400).json({ error: 'Title is required!' });
     } else {
       const newChore = await addChore(userId, chore);
-      res.status(200).json(newChore);
+      res.status(201).json(newChore);
     }
   } catch (error) {
     res.status(500).json({ error: error.message });
