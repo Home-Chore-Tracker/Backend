@@ -2,7 +2,8 @@ const router = require('express').Router();
 const {
   findChildren,
   findChildById,
-  updateChild
+  updateChild,
+  destroyChild
 } = require('../models/children');
 
 router.get('/', async (req, res) => {
@@ -55,8 +56,16 @@ router.put('/:id', async (req, res) => {
   }
 });
 
-router.delete('/:id', (req, res) => {
-  //inert content
+router.delete('/:id', async (req, res) => {
+  const { id } = req.params;
+  const { decodedJwt } = req;
+  const userId = decodedJwt.subject;
+  try {
+    await destroyChild(userId, id);
+    res.status(204).end();
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
 });
 
 module.exports = router;
