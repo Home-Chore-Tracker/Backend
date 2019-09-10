@@ -142,7 +142,7 @@ for each of the API resource types (i.e. `User`, `Family`, `Child`, and `Chore`)
 [
   {
     id,
-    name,
+    title,
     description,
     duedate,
     completed,
@@ -151,7 +151,7 @@ for each of the API resource types (i.e. `User`, `Family`, `Child`, and `Chore`)
   },
   {
     id,
-    name,
+    title,
     description,
     duedate,
     completed,
