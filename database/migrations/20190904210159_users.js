@@ -7,6 +7,7 @@ exports.up = function(knex) {
       .unique()
       .notNullable();
     table.string('password').notNullable();
+    table.string('jwt', 512);
   });
 };
 
