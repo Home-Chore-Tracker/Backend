@@ -8,8 +8,7 @@ POST /api/auth/logout
 const router = require("express").Router();
 const bcrypt = require("bcryptjs");
 const db = require("../database/config");
-const { generateToken } = require("../middleware");
-const jwt = require("jsonwebtoken");
+const { generateToken, restricted } = require("../middleware");
 
 router.post("/register", async (req, res) => {
   const { email, password, name } = req.body;
@@ -46,7 +45,7 @@ router.post("/login", async (req, res) => {
     const [user] = await db("users").where({ email });
     if (user && bcrypt.compareSync(password, user.password)) {
       const token = generateToken(user);
-      console.log(token);
+      await db('users').where({ email }).update({ jwt: token })
       return res.status(200).json({ message: `Welcome ${user.email}`, token });
     } else {
       return res.status(401).json({
@@ -61,15 +60,29 @@ router.post("/login", async (req, res) => {
   }
 });
 
-router.get("/logout", (req, res, next) => {
-  if (req.session) {
-    req.session.destroy(function(err) {
-      if (err) {
-        return next(err);
-      } else {
-        return res.redirect("/");
-      }
-    });
+router.post("/logout", restricted, async (req, res, next) => {
+  // Access to this route handler is granted if a token is supplied via the
+  // `Authorization` header as enforced by the `restricted` middleware.
+  // Thus, we can ensure there is a `userId` from the decodedJwt.
+  const userId = req.decodedJwt.subject
+  try {
+    // Invalidate the current jwt associated with this user
+    await db('users').where({ id: userId }).update({ jwt: null })
+    // Next, handle deleting sessions for this user
+    if (req.session) {
+      req.session.destroy(error => {
+        if (error) {
+          return next(error);
+        } else {
+          return res.redirect("/");
+        }
+      });
+    }
+  } catch (error) {
+    res.status(500).json({
+      error: error.message
+    })
   }
 });
+
 module.exports = router;
