@@ -1,15 +1,43 @@
-/*
-# Authentication
-POST /api/auth/login
-POST /api/auth/register (this acts like POST /api/users)
-POST /api/auth/logout
-*/
-
 const router = require("express").Router();
 const bcrypt = require("bcryptjs");
 const db = require("../database/config");
 const { generateToken, restricted } = require("../middleware");
 
+/**
+ * @swagger
+ * /auth/register:
+ *  post:
+ *    summary: Create a new user account
+ *    description: Create a new user account
+ *    tags: [Auth]
+ *    consumes:
+ *      - application/json
+ *    parameters:
+ *      - in: body
+ *        name: user
+ *        description: The user to create
+ *        schema:
+ *          type: object
+ *          required:
+ *            - name
+ *            - email
+ *            - password
+ *          properties:
+ *            name:
+ *              type: string
+ *            email:
+ *              type: string
+ *            password:
+ *              type: string
+ *    responses:
+ *      201:
+ *        description: returns the newly-created user
+ *      400:
+ *        description: returned if any of `email`, `name` or `password` are
+ *                     missing
+ *      500:
+ *        description: returned in the event of a server error
+ */
 router.post("/register", async (req, res) => {
   const { email, password, name } = req.body;
   if (!email || !password || !name) {
@@ -33,6 +61,40 @@ router.post("/register", async (req, res) => {
   }
 });
 
+/**
+ * @swagger
+ * /auth/login:
+ *  post:
+ *    summary: Login with an existing user account
+ *    description: Login with an existing user account
+ *    tags: [Auth]
+ *    consumes:
+ *      - application/json
+ *    parameters:
+ *      - in: body
+ *        name: credentials
+ *        description: Credentials matching an existing user in the database
+ *        schema:
+ *          type: object
+ *          required:
+ *            - email
+ *            - password
+ *          properties:
+ *            email:
+ *              type: string
+ *            password:
+ *              type: string
+ *    responses:
+ *      200:
+ *        description: returns the JSON Web Token (JWT) needed to make requests
+ *                     against all other routes
+ *      400:
+ *        description: returned if any of `email` or `password` are missing
+ *      401:
+ *        description: returned when invalid credentials are supplied
+ *      500:
+ *        description: returned in the event of a server error
+ */
 router.post("/login", async (req, res) => {
   const { email, password } = req.body;
   if (!email || !password) {
@@ -60,6 +122,27 @@ router.post("/login", async (req, res) => {
   }
 });
 
+/**
+ * @swagger
+ * /auth/logout:
+ *  post:
+ *    security:
+ *      - JWTKeyHeader: []
+ *    summary: Logout of logged in account, destroying current session and
+ *             invalidating JWT
+ *    description: Logout of logged in account, destroying current session and
+ *             invalidating JWT
+ *    tags: [Auth]
+ *    responses:
+ *      200:
+ *        description: current session destroyed and JWT invalidated successfully
+ *      400:
+ *        description: returned if `Authorization` header is missing
+ *      401:
+ *        description: returned when JWT is either expired or malformed
+ *      500:
+ *        description: returned in the event of a server error
+ */
 router.post("/logout", restricted, async (req, res, next) => {
   // Access to this route handler is granted if a token is supplied via the
   // `Authorization` header as enforced by the `restricted` middleware.
