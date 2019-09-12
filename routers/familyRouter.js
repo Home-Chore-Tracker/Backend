@@ -41,7 +41,7 @@ router.get('/', async (req, res) => {
 
 /**
  * @swagger
- * /families/:id:
+ * /families/{id}:
  *  get:
  *    security:
  *      - JWTKeyHeader: []
@@ -50,7 +50,7 @@ router.get('/', async (req, res) => {
  *    tags: [Families]
  *    parameters:
  *      - in: path
- *        name: familyId
+ *        name: id
  *        required: true
  *        type: integer
  *        description: ID belonging to the family to retrieve
@@ -137,7 +137,7 @@ router.post('/', async (req, res) => {
 
 /**
  * @swagger
- * /families/:id:
+ * /families/{id}:
  *  put:
  *    security:
  *      - JWTKeyHeader: []
@@ -148,7 +148,7 @@ router.post('/', async (req, res) => {
  *      - application/json
  *    parameters:
  *      - in: path
- *        name: familyId
+ *        name: id
  *        required: true
  *        type: integer
  *        description: ID belonging to the family to update
@@ -193,7 +193,7 @@ router.put('/:id', async (req, res) => {
 
 /**
  * @swagger
- * /families/:id:
+ * /families/{id}:
  *  delete:
  *    security:
  *      - JWTKeyHeader: []
@@ -204,7 +204,7 @@ router.put('/:id', async (req, res) => {
  *      - application/json
  *    parameters:
  *      - in: path
- *        name: familyId
+ *        name: id
  *        required: true
  *        type: integer
  *        description: ID belonging to the family to delete

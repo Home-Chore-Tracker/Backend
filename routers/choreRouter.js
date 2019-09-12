@@ -41,7 +41,7 @@ router.get('/', async (req, res) => {
 
 /**
  * @swagger
- * /chores/:id:
+ * /chores/{id}:
  *  get:
  *    security:
  *      - JWTKeyHeader: []
@@ -50,7 +50,7 @@ router.get('/', async (req, res) => {
  *    tags: [Chores]
  *    parameters:
  *      - in: path
- *        name: choreId
+ *        name: id
  *        required: true
  *        type: integer
  *        description: ID belonging to the chore to retrieve
@@ -146,7 +146,7 @@ router.post('/', async (req, res) => {
 
 /**
  * @swagger
- * /chores/:id:
+ * /chores/{id}:
  *  put:
  *    security:
  *      - JWTKeyHeader: []
@@ -157,7 +157,7 @@ router.post('/', async (req, res) => {
  *      - application/json
  *    parameters:
  *      - in: path
- *        name: choreId
+ *        name: id
  *        required: true
  *        type: integer
  *        description: ID belonging to the chore to update
@@ -212,7 +212,7 @@ router.put('/:id', async (req, res) => {
 
 /**
  * @swagger
- * /chores/:id:
+ * /chores/{id}:
  *  delete:
  *    security:
  *      - JWTKeyHeader: []
@@ -223,7 +223,7 @@ router.put('/:id', async (req, res) => {
  *      - application/json
  *    parameters:
  *      - in: path
- *        name: choreId
+ *        name: id
  *        required: true
  *        type: integer
  *        description: ID belonging to the chore to delete
