@@ -1,6 +1,8 @@
 const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
+const swaggerUi = require('swagger-ui-express');
+const swaggerJSDoc = require('swagger-jsdoc');
 
 //Import routes here
 const authRouter = require('../routers/authRouter');
@@ -39,6 +41,25 @@ const sessionOptions = {
   })
 };
 
+const { version, description } = require('../package.json')
+
+const swaggerDefinition = {
+  info: {
+    title: 'Home Chore Tracker API',
+    version,
+    description,
+  },
+  host: `localhost:${process.env.PORT || 5000}`,
+  basePath: '/api/',
+}
+
+const docOptions = {
+  swaggerDefinition,
+  apis: ['./routers/*.js']
+}
+
+const swaggerSpec = swaggerJSDoc(docOptions)
+
 server.use(helmet());
 server.use(cors());
 server.use(express.json());
@@ -50,6 +71,8 @@ server.use('/api/users', restricted, userRouter);
 server.use('/api/families', restricted, familyRouter);
 server.use('/api/children', restricted, childRouter);
 server.use('/api/chores', restricted, choreRouter);
+
+server.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec))
 
 server.get('/', (req, res) => {
   res.send('We out here!');
