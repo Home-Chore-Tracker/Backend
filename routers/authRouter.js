@@ -3,29 +3,6 @@ const bcrypt = require("bcryptjs");
 const db = require("../database/config");
 const { generateToken, restricted } = require("../middleware");
 
-
-/**
- * @swagger
- * tags:
- *  - name: Auth
- *    description:
- *  - name: Users
- *    description:
- *  - name: Families
- *    description:
- *  - name: Children
- *    description:
- *  - name: Chores
- *    description:
- * 
- * securityDefinitions:
- *  JWTKeyHeader:
- *    type: apiKey
- *    in: header
- *    name: Authorization
- */
-
-
 /**
  * @swagger
  * /auth/register:

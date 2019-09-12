@@ -49,13 +49,12 @@ const swaggerDefinition = {
     version,
     description,
   },
-  host: `localhost:${process.env.PORT || 5000}`,
   basePath: '/api/',
 }
 
 const docOptions = {
   swaggerDefinition,
-  apis: ['./routers/*.js']
+  apis: ['./routers/*.js', './resources/swagger-helpers.js']
 }
 
 const swaggerSpec = swaggerJSDoc(docOptions)
