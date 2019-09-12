@@ -6,7 +6,6 @@ const {
   updateFamily,
   destroyFamily
 } = require('../models/families');
-const { addChild } = require('../models/children');
 
 /**
  * @swagger
@@ -130,27 +129,6 @@ router.post('/', async (req, res) => {
     } else {
       const newFamily = await addFamily(userId, family);
       res.status(201).json(newFamily);
-    }
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-});
-
-//This is posting a new child to a family
-
-router.post('/:id', async (req, res) => {
-  const { name } = req.body;
-  const { id } = req.params;
-  const child = req.body;
-  // how we get token
-  const { decodedJwt } = req;
-  const userId = decodedJwt.subject;
-  try {
-    if (!name) {
-      res.status(400).json({ error: 'Child name is require!' });
-    } else {
-      const newChild = await addChild(userId, id, child);
-      res.status(201).json(newChild);
     }
   } catch (error) {
     res.status(500).json({ error: error.message });

@@ -2,6 +2,7 @@ const router = require('express').Router();
 const {
   findChildren,
   findChildById,
+  addChild,
   updateChild,
   destroyChild
 } = require('../models/children');
@@ -81,6 +82,60 @@ router.get('/:id', async (req, res) => {
     res.status(500).json({
       error: error.message
     });
+  }
+});
+
+/**
+ * @swagger
+ * /children:
+ *  post:
+ *    security:
+ *      - JWTKeyHeader: []
+ *    summary: Creates a new child belonging to the given family
+ *    description: Creates a new child belonging to the given family
+ *    tags: [Children]
+ *    consumes:
+ *      - application/json
+ *    parameters:
+ *      - in: body
+ *        name: child
+ *        description: The child to create
+ *        schema:
+ *          type: object
+ *          required:
+ *            - name
+ *            - familyId
+ *          properties:
+ *            name:
+ *              type: string
+ *            familyId:
+ *              type: integer
+ *    responses:
+ *      201:
+ *        description: returns the newly-created child
+ *      400:
+ *        description: returned if `Authorization` header is missing, OR if the
+ *                     required properties are missing
+ *      401:
+ *        description: returned when JWT is either expired or malformed
+ *      500:
+ *        description: returned in the event of a server error
+ */
+router.post('/', async (req, res) => {
+  const { name, familyId } = req.body;
+  const child = req.body;
+  // how we get token
+  const { decodedJwt } = req;
+  const userId = decodedJwt.subject;
+  try {
+    if (!name || !familyId) {
+      res.status(400).json({ error: 'Child `name` and `familyId` are required!' });
+    } else {
+      const newChild = await addChild(userId, familyId, child);
+      res.status(201).json(newChild);
+    }
+  } catch (error) {
+    res.status(500).json({ error: error.message });
   }
 });
 
