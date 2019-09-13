@@ -19,6 +19,11 @@ const {
  *    responses:
  *      200:
  *        description: returns an array of chores for the given user
+ *        schema:
+ *          type: array
+ *          description: The chores that belong to the authenticated user.
+ *          items:
+ *            $ref: '#/definitions/Chore'
  *      400:
  *        description: returned if `Authorization` header is missing
  *      401:
@@ -41,7 +46,7 @@ router.get('/', async (req, res) => {
 
 /**
  * @swagger
- * /chores/:id:
+ * /chores/{id}:
  *  get:
  *    security:
  *      - JWTKeyHeader: []
@@ -50,13 +55,15 @@ router.get('/', async (req, res) => {
  *    tags: [Chores]
  *    parameters:
  *      - in: path
- *        name: choreId
+ *        name: id
  *        required: true
  *        type: integer
  *        description: ID belonging to the chore to retrieve
  *    responses:
  *      200:
  *        description: returns an object of the matching chore for the given ID
+ *        schema:
+ *          $ref: '#/definitions/Chore'
  *      400:
  *        description: returned if `Authorization` header is missing
  *      401:
@@ -119,6 +126,8 @@ router.get('/:id', async (req, res) => {
  *    responses:
  *      201:
  *        description: returns the newly-created chore
+ *        schema:
+ *          $ref: '#/definitions/Chore'
  *      400:
  *        description: returned if `Authorization` header is missing, OR if the
  *                     required properties are missing
@@ -146,7 +155,7 @@ router.post('/', async (req, res) => {
 
 /**
  * @swagger
- * /chores/:id:
+ * /chores/{id}:
  *  put:
  *    security:
  *      - JWTKeyHeader: []
@@ -157,7 +166,7 @@ router.post('/', async (req, res) => {
  *      - application/json
  *    parameters:
  *      - in: path
- *        name: choreId
+ *        name: id
  *        required: true
  *        type: integer
  *        description: ID belonging to the chore to update
@@ -181,6 +190,8 @@ router.post('/', async (req, res) => {
  *    responses:
  *      200:
  *        description: returns the updated chore
+ *        schema:
+ *          $ref: '#/definitions/Chore'
  *      400:
  *        description: returned if `Authorization` header is missing, OR if none
  *                     of the chore properties were supplied
@@ -212,7 +223,7 @@ router.put('/:id', async (req, res) => {
 
 /**
  * @swagger
- * /chores/:id:
+ * /chores/{id}:
  *  delete:
  *    security:
  *      - JWTKeyHeader: []
@@ -223,7 +234,7 @@ router.put('/:id', async (req, res) => {
  *      - application/json
  *    parameters:
  *      - in: path
- *        name: choreId
+ *        name: id
  *        required: true
  *        type: integer
  *        description: ID belonging to the chore to delete

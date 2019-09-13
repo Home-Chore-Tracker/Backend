@@ -49,12 +49,15 @@ const swaggerDefinition = {
     version,
     description,
   },
+  host: process.env.NODE_ENV === 'production'
+    ? 'home-chore-tracker.herokuapp.com'
+    : `localhost:${process.env.PORT || 5000}`,
   basePath: '/api/',
 }
 
 const docOptions = {
   swaggerDefinition,
-  apis: ['./routers/*.js', './resources/swagger-helpers.js']
+  apis: ['./docs/*.js', './routers/*.js']
 }
 
 const swaggerSpec = swaggerJSDoc(docOptions)

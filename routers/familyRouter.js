@@ -19,6 +19,11 @@ const {
  *    responses:
  *      200:
  *        description: returns an array of families for the given user
+ *        schema:
+ *          type: array
+ *          description: The families that belong to this user.
+ *          items:
+ *            $ref: '#/definitions/FamilyExpanded'
  *      400:
  *        description: returned if `Authorization` header is missing
  *      401:
@@ -41,7 +46,7 @@ router.get('/', async (req, res) => {
 
 /**
  * @swagger
- * /families/:id:
+ * /families/{id}:
  *  get:
  *    security:
  *      - JWTKeyHeader: []
@@ -50,13 +55,15 @@ router.get('/', async (req, res) => {
  *    tags: [Families]
  *    parameters:
  *      - in: path
- *        name: familyId
+ *        name: id
  *        required: true
  *        type: integer
  *        description: ID belonging to the family to retrieve
  *    responses:
  *      200:
  *        description: returns an object of the matching family for the given ID
+ *        schema:
+ *          $ref: '#/definitions/FamilyExpanded'
  *      400:
  *        description: returned if `Authorization` header is missing
  *      401:
@@ -110,6 +117,8 @@ router.get('/:id', async (req, res) => {
  *    responses:
  *      201:
  *        description: returns the newly-created family
+ *        schema:
+ *          $ref: '#/definitions/Family'
  *      400:
  *        description: returned if `Authorization` header is missing, OR if the
  *                     required `surname` property is missing
@@ -137,7 +146,7 @@ router.post('/', async (req, res) => {
 
 /**
  * @swagger
- * /families/:id:
+ * /families/{id}:
  *  put:
  *    security:
  *      - JWTKeyHeader: []
@@ -148,7 +157,7 @@ router.post('/', async (req, res) => {
  *      - application/json
  *    parameters:
  *      - in: path
- *        name: familyId
+ *        name: id
  *        required: true
  *        type: integer
  *        description: ID belonging to the family to update
@@ -165,6 +174,8 @@ router.post('/', async (req, res) => {
  *    responses:
  *      200:
  *        description: returns the updated family
+ *        schema:
+ *          $ref: '#/definitions/Family'
  *      400:
  *        description: returned if `Authorization` header is missing, OR if no
  *                     `surname` property was supplied
@@ -193,7 +204,7 @@ router.put('/:id', async (req, res) => {
 
 /**
  * @swagger
- * /families/:id:
+ * /families/{id}:
  *  delete:
  *    security:
  *      - JWTKeyHeader: []
@@ -204,7 +215,7 @@ router.put('/:id', async (req, res) => {
  *      - application/json
  *    parameters:
  *      - in: path
- *        name: familyId
+ *        name: id
  *        required: true
  *        type: integer
  *        description: ID belonging to the family to delete

@@ -14,6 +14,8 @@ const { findUserById, updateUser, destroyUser } = require('../models/users')
  *    responses:
  *      200:
  *        description: Information about the logged-in user
+ *        schema:
+ *          $ref: '#/definitions/UserExpanded'
  *      400:
  *        description: returned if `Authorization` header is missing
  *      401:
@@ -62,6 +64,8 @@ router.get('/me', async (req, res) => {
  *    responses:
  *      200:
  *        description: returns the user with their updated information
+ *        schema:
+ *          $ref: '#/definitions/User'
  *      400:
  *        description: returned if `Authorization` header is missing, OR if 
  *                     any of `email`, `name` or `password` are missing

@@ -1,4 +1,7 @@
 /**
+ * References:
+ *  - https://swagger.io/docs/specification/2-0/grouping-operations-with-tags/
+ * 
  * @swagger
  * tags:
  *  - name: Auth
@@ -11,13 +14,4 @@
  *    description:
  *  - name: Chores
  *    description:
- */
-
-/**
- * @swagger
- * securityDefinitions:
- *  JWTKeyHeader:
- *    type: apiKey
- *    in: header
- *    name: Authorization
  */
