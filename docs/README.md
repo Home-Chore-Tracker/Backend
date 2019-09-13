@@ -1,4 +1,11 @@
-## REST API JSON Responses for `GET` Requests
+# REST API JSON Documentation
+
+## Current
+
+This backend server now has API documentation generated thanks to Swagger. Go
+to https://home-chore-tracker.unubo.app/api-docs to view the docs.
+
+## Legacy
 
 This document outlines the expected JSON object response for the `GET` requests
 for each of the API resource types (i.e. `User`, `Family`, `Child`, and `Chore`).

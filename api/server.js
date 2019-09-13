@@ -57,7 +57,7 @@ const swaggerDefinition = {
 
 const docOptions = {
   swaggerDefinition,
-  apis: ['./routers/*.js', './resources/swagger-helpers.js']
+  apis: ['./docs/*.js', './routers/*.js']
 }
 
 const swaggerSpec = swaggerJSDoc(docOptions)
