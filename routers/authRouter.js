@@ -32,6 +32,8 @@ const { generateToken, restricted } = require("../middleware");
  *    responses:
  *      201:
  *        description: returns the newly-created user
+ *        schema:
+ *          $ref: '#/definitions/User'
  *      400:
  *        description: returned if any of `email`, `name` or `password` are
  *                     missing

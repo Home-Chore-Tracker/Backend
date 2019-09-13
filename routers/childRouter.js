@@ -19,6 +19,11 @@ const {
  *    responses:
  *      200:
  *        description: returns an array of children for the given user
+ *        schema:
+ *          type: array
+ *          description: The children that belong to the authenticated user.
+ *          items:
+ *            $ref: '#/definitions/ChildExpanded'
  *      400:
  *        description: returned if `Authorization` header is missing
  *      401:
@@ -57,6 +62,8 @@ router.get('/', async (req, res) => {
  *    responses:
  *      200:
  *        description: returns an object of the matching child for the given ID
+ *        schema:
+ *          $ref: '#/definitions/ChildExpanded'
  *      400:
  *        description: returned if `Authorization` header is missing
  *      401:
@@ -113,6 +120,8 @@ router.get('/:id', async (req, res) => {
  *    responses:
  *      201:
  *        description: returns the newly-created child
+ *        schema:
+ *          $ref: '#/definitions/Child'
  *      400:
  *        description: returned if `Authorization` header is missing, OR if the
  *                     required properties are missing
@@ -169,6 +178,8 @@ router.post('/', async (req, res) => {
  *    responses:
  *      200:
  *        description: returns the updated child
+ *        schema:
+ *          $ref: '#/definitions/Child'
  *      400:
  *        description: returned if `Authorization` header is missing, OR if no
  *                     `name` property was supplied
