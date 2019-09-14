@@ -2,13 +2,23 @@ const request = require('supertest')
 const server = require('../../api/server')
 const db = require('../../database/config')
 
-describe('Auth Router - `/api/auth/`', () => {
+beforeAll(async () => {
+  await db('users').truncate()
+  await db.seed.run()
+})
+
+afterAll(async () => {
+  await db('users').truncate()
+  await db.seed.run()
+})
+
+describe('Auth Router - `/api/auth`', () => {
   beforeEach(async () => {
     await db('users').truncate()
     await db.seed.run()
   })
 
-  describe('Register `POST /api/auth/register`', () => {
+  describe('POST /api/auth/register', () => {
     test('should return HTTP status code 200 when successful', async () => {
       const validMockData = {
         name: 'Test User',
@@ -47,7 +57,7 @@ describe('Auth Router - `/api/auth/`', () => {
     })
   })
 
-  describe('Login `POST /api/auth/login`', () => {
+  describe('POST /api/auth/login', () => {
     test('should return HTTP status code 200 when successful', async () => {
       const validLoginCredentials = {
         email: 'testuser@example.com',
@@ -95,7 +105,7 @@ describe('Auth Router - `/api/auth/`', () => {
     })
   })
 
-  describe('Logout `POST /api/auth/logout`', () => {
+  describe('POST /api/auth/logout', () => {
     test('should return HTTP status code 200 when successful', async () => {
       const validLoginCredentials = {
         email: 'testuser@example.com',

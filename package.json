@@ -13,7 +13,7 @@
     "db:setup": "yarn db:drop && yarn db:migrate && yarn db:seed",
     "start": "node index.js",
     "server": "nodemon index.js",
-    "test": "jest --watch"
+    "test": "jest --watch --runInBand"
   },
   "jest": {
     "testEnvironment": "node"
