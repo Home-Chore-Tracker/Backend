@@ -12,7 +12,7 @@ afterAll(async () => {
   await db.seed.run()
 })
 
-describe('Families Router - `/api/families`', () => {
+describe('Children Router - `/api/children`', () => {
   let token;
   beforeEach(async () => {
     await db('users').truncate()
@@ -30,79 +30,82 @@ describe('Families Router - `/api/families`', () => {
     token = response.body.token
   })
 
-  describe('GET /api/families', () => {
+  describe('GET /api/children', () => {
     test('should return HTTP status code 200', async () => {
       const response = await request(server)
-        .get('/api/families')
+        .get('/api/children')
         .set('Authorization', token)
 
       expect(response.status).toBe(200)
       expect(response.body).toBeInstanceOf(Array)
     })
   })
-
-  describe('GET /api/families/:id', () => {
+  
+  describe('GET /api/children/:id', () => {
     test('should return HTTP status code 200', async () => {
       const response = await request(server)
-        .get('/api/families/1')
+        .get('/api/children/1')
         .set('Authorization', token)
 
       expect(response.status).toBe(200)
       expect(response.body).toBeInstanceOf(Object)
       expect(response.body).toHaveProperty('id')
       expect(response.body).toHaveProperty('user_id')
-      expect(response.body).toHaveProperty('surname')
-      expect(response.body).toHaveProperty('children')
+      expect(response.body).toHaveProperty('family_id')
+      expect(response.body).toHaveProperty('name')
+      expect(response.body).toHaveProperty('chores')
     })
   })
 
-  describe('POST /api/families', () => {
+  describe('POST /api/children', () => {
     test('should return HTTP status code 201', async () => {
-      const mockFamily = {
-        surname: 'The Pop, Lockett, Drop-its',
-        user_id: 1,
+      const mockChild = {
+        name: 'Billy',
+        familyId: 1,
       }
 
       const response = await request(server)
-        .post('/api/families')
-        .send(mockFamily)
+        .post('/api/children')
+        .send(mockChild)
         .set('Authorization', token)
 
       expect(response.status).toBe(201)
       expect(response.body).toBeInstanceOf(Object)
       expect(response.body).toHaveProperty('id')
-      expect(response.body).toHaveProperty('user_id', mockFamily.user_id)
-      expect(response.body).toHaveProperty('surname', mockFamily.surname)
-      expect(response.body).not.toHaveProperty('children')
+      expect(response.body).toHaveProperty('user_id')
+      expect(response.body).toHaveProperty('family_id', mockChild.familyId)
+      expect(response.body).toHaveProperty('name', mockChild.name)
+      expect(response.body).not.toHaveProperty('chores')
     })
   })
-
-  describe('PUT /api/families/:id', () => {
+  
+  describe('PUT /api/children/:id', () => {
     test('should return HTTP status code 200', async () => {
-      const mockFamilyUpdates = {
-        surname: `The Lockett's`,
+      const mockChildUpdates = {
+        name: 'Ced Updated',
       }
 
       const response = await request(server)
-        .put('/api/families/1')
-        .send(mockFamilyUpdates)
+        .put('/api/children/3')
+        .send(mockChildUpdates)
         .set('Authorization', token)
 
       expect(response.status).toBe(200)
       expect(response.body).toBeInstanceOf(Object)
       expect(response.body).toHaveProperty('id')
       expect(response.body).toHaveProperty('user_id')
-      expect(response.body).toHaveProperty('surname', mockFamilyUpdates.surname)
+      expect(response.body).toHaveProperty('family_id')
+      expect(response.body).toHaveProperty('name', mockChildUpdates.name)
       expect(response.body).not.toHaveProperty('chores')
     })
   })
 
-  describe('DELETE /api/families/:id', () => {
+  describe('DELETE /api/children/:id', () => {
     test('should return HTTP status code 204', async () => {
       const response = await request(server)
-        .delete('/api/families/1')
+        .delete('/api/children/1')
         .set('Authorization', token)
-
+      
       expect(response.status).toBe(204)
     })
   })

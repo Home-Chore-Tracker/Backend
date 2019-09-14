@@ -196,7 +196,7 @@ router.put('/:id', async (req, res) => {
   }
   try {
     const updated = await updateFamily(userId, id, updates);
-    res.status(201).json(updated);
+    res.status(200).json(updated);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
