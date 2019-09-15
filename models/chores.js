@@ -1,5 +1,19 @@
 const db = require('../database/config');
 
+const convertCompletedIntsToBooleans = chores => {
+  if (Array.isArray(chores)) {
+    chores.forEach(chore => {
+      return {
+        ...chore,
+        completed: chore.completed === 0 ? false : true
+      }
+    })
+  } else {
+    chores.completed = chores.completed === 0 ? false : true
+  }
+  return chores
+}
+
 /**
  *
  * @param {Integer} userId id of the currently-authenticated user
@@ -12,7 +26,7 @@ const findChores = async (userId, options = { filter: {} }) => {
     user_id: userId,
     ...options.filter
   });
-  return chores;
+  return convertCompletedIntsToBooleans(chores);
 };
 
 /**
@@ -29,7 +43,7 @@ const findChoreById = async (userId, choreId, options = { filter: {} }) => {
     id: choreId,
     ...options.filter
   });
-  return chore;
+  return convertCompletedIntsToBooleans(chore);
 };
 
 const addChore = async (userId, chore) => {

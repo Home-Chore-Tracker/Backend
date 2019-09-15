@@ -140,7 +140,7 @@ router.post('/', async (req, res) => {
     if (!name || !familyId) {
       res.status(400).json({ error: 'Child `name` and `familyId` are required!' });
     } else {
-      const newChild = await addChild(userId, familyId, child);
+      const newChild = await addChild(userId, familyId, { name });
       res.status(201).json(newChild);
     }
   } catch (error) {
@@ -200,7 +200,7 @@ router.put('/:id', async (req, res) => {
   }
   try {
     const updated = await updateChild(userId, id, updates);
-    res.status(201).json(updated);
+    res.status(200).json(updated);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
