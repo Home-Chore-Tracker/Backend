@@ -27,7 +27,7 @@
     "express-session": "^1.16.2",
     "helmet": "^3.20.0",
     "jsonwebtoken": "^8.5.1",
-    "knex": "^0.19.3",
+    "knex": "^0.19.5",
     "sqlite3": "^4.1.0",
     "swagger-jsdoc": "^3.4.0",
     "swagger-ui-express": "^4.1.0"
