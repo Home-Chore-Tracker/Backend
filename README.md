@@ -1,6 +1,13 @@
 
 ## Background
 
+**About**
+App that tracks a list of items needed for home improvement. 
+Take a picture of the item--get led to a YouTube page discussing topics 
+surrounding the item. Make it fun for my kids to pitch in on the process of keeping our chores in tact.
+
+Tech Stack Used: dbdesigner.net,  NodeJS with Express, PostgreSQL, and Heroku
+
 **Pitch**
 
 App that tracks a list of items needed for home improvement. Take a picture of the item--get led to a YouTube
