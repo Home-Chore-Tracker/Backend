@@ -1,6 +1,8 @@
 
 ## Background
 
+[API Docs](https://home-chore-tracker.herokuapp.com/api-docs/)
+
 **About**
 App that tracks a list of items needed for home improvement. 
 Take a picture of the item--get led to a YouTube page discussing topics 
